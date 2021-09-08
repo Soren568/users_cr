@@ -17,13 +17,36 @@ def new_user():
     
 @app.route("/create_user", methods=["POST"])
 def create_user():
-    data = {
-        "fname" : request.form["fname"],
-        "lname" : request.form["lname"],
-        "email" : request.form["email"]
-    }
-    User.save(data)
+    User.save(request.form)
     return redirect('/')
+
+@app.route("/users/<int:id>")
+def user_view(id):
+    data = {
+        "id": id
+    }
+    return render_template("user_info.html", user=User.get_one(data))
+    
+@app.route('/user/update', methods=["POST"])
+def update():
+    User.update(request.form)
+    return redirect('/')
+
+@app.route("/users/<int:id>/edit")
+def edit(id):
+    data = {
+        "id":id
+    }
+    return render_template("edit_user.html", user=User.get_one(data))
+
+@app.route("/delete/<int:id>")
+def delete_user():
+    data = {
+        "id" : id
+    }
+    User.delete_one(data)
+    return redirect("/")
+
 
 if __name__ == "__main__":
     app.run(debug=True)

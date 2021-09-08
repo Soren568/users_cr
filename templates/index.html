@@ -17,17 +17,23 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
+                    <th scope="col">#</th>
                     <th scope="col">First</th>
                     <th scope="col">Last</th>
                     <th scope="col">Email</th>
+                    <th scope="col">Created At</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
         {% for user in all_users %}
                 <tr>
+                    <th scope="row">{{user.id}}</th>
                     <td>{{user.first_name}}</td>
                     <td>{{user.last_name}}</td>
                     <td>{{user.email}}</td>
+                    <td>{{user.created_at}}</td>
+                    <td> <a href="/users/{{user.id}}">Show</a> | <a href="/users/{{user.id}}/edit">Edit</a> | <a href="/delete/{{user.id}}">Delete</a>  </td>
                 </tr>
         {% endfor %}
             </tbody>
